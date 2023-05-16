@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import os
 
-# Dirección de la imagen
+# Address of the image.
 Addres = 'C:\\Users\\matia\\Desktop\\FaceMask-Detection\\images' 
 folderlist = os.listdir(Addres)
 Labels = []
@@ -10,14 +10,14 @@ faces = []
 cont = 0
 
 for nd in folderlist:
-    name = os.path.join(Addres, nd) # Leer las fotos de los rostros
-    if os.path.isdir(name):  # Asegurar que name es un directorio
+    name = os.path.join(Addres, nd) # Reading the photos of the faces.
+    if os.path.isdir(name):  # Verifying that name is a directory.
         for filename in os.listdir(name):
-            Labels.append(cont)  # Asignamos las etiquetas
+            Labels.append(cont)  # Assigning the labels.
             faces.append(cv2.imread(os.path.join(name, filename), 0))
         cont += 1
 
-# Modelo y entrenamiento
+# Model and training.
 F_recognition = cv2.face.LBPHFaceRecognizer_create()
 F_recognition.train(faces, np.array(Labels))
 F_recognition.write("TrainModel.xml")
